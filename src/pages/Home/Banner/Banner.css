@@ -1,0 +1,27 @@
+.welcome-img {
+    width: 700px;
+    margin-top: 150px;
+}
+.banner-title {
+    font-weight: 400;
+    font-size: 90px;
+    margin-top: 0px;
+}
+.banner-button {
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .welcome-img {
+        width: 230px;
+        margin-top: 28px;
+    }
+    .banner-title {
+        font-weight: 400;
+        font-size: 22px;
+        margin-top: 0px;
+    }
+    .banner-button {
+        font-size: 6px;
+    }
+}
