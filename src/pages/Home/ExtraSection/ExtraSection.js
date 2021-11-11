@@ -11,6 +11,7 @@ const ExtraSection = () => {
                     component="div"
                     gutterBottom
                     sx={{ fontWeight: "bold", color: "#110917" }}
+                    style={{fontFamily: '"Comic Sans"'}}
                 >
                     WHAT THEY'RE SAYING
                 </Typography>

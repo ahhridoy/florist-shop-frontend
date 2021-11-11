@@ -16,7 +16,7 @@ const Footer = () => {
                             variant="h4"
                             gutterBottom
                             component="div"
-                            sx={{ fontWeight: "bold" }}
+                            sx={{ fontWeight: "bold", fontFamily: 'Raleway, Arial' }}
                         >
                             Florist Shop
                         </Typography>
