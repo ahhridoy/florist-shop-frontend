@@ -7,6 +7,7 @@ import {
     GoogleAuthProvider,
     signOut,
     onAuthStateChanged,
+    updateProfile,
 } from "firebase/auth";
 import initializeAuthentication from "../../pages/Firebase/firebase.init";
 
@@ -19,11 +20,20 @@ const useFirebase = () => {
     const [authError, setAuthError] = useState("");
     const auth = getAuth();
 
-    const registerUser = (email, password) => {
+    const registerUser = (email, password, name, history) => {
         setIsLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
                 setAuthError("");
+                const newUser = {email, displayName: name}
+                setUser(newUser);
+                // send name to firebase after creation
+                updateProfile(auth.currentUser, {
+                    displayName: name
+                  }).then(() => {
+                  }).catch((error) => {
+                  });
+                history.replace("/");
             })
             .catch((error) => {
                 setAuthError(error.message);
@@ -52,7 +62,6 @@ const useFirebase = () => {
             .then((result) => {
                 const destination = location?.state?.from || "/";
                 history.replace(destination);
-                const user = result.user;
                 setAuthError("");
             })
             .catch((error) => {
@@ -72,7 +81,7 @@ const useFirebase = () => {
             setIsLoading(false);
         });
         return () => unsubscribed;
-    }, []);
+    }, [auth]);
 
     const logOut = () => {
         setIsLoading(true);

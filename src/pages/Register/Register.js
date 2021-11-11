@@ -16,7 +16,7 @@ const Register = () => {
     const [loginData, setLoginData] = useState({});
     const { user, registerUser, isLoading, authError } = useAuth();
 
-    // const history = useHistory();
+    const history = useHistory();
 
     const handleOnBlur = (e) => {
         const field = e.target.name;
@@ -32,7 +32,7 @@ const Register = () => {
             alert("Your password did not match");
             return;
         }
-        registerUser(loginData.email, loginData.password, loginData.name);
+        registerUser(loginData.email, loginData.password, loginData.name, history);
         e.preventDefault();
     };
     return (

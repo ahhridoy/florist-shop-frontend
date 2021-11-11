@@ -5,6 +5,7 @@ import ExploreAllProducts from "./pages/ExploreAllProducts/ExploreAllProducts";
 import Home from "./pages/Home/Home/Home";
 import Login from "./pages/Login/Login";
 import NotFound from "./pages/NotFound/NotFound";
+import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 import PrivateRoute from "./pages/PrivateRoute/PrivateRoute";
 import Register from "./pages/Register/Register";
 import Footer from "./pages/Shared/Footer/Footer";
@@ -23,8 +24,11 @@ function App() {
                         <Route path="/home">
                             <Home></Home>
                         </Route>
-                        <PrivateRoute path="/exploreAllProducts">
+                        <Route path="/exploreAllProducts">
                             <ExploreAllProducts></ExploreAllProducts>
+                        </Route>
+                        <PrivateRoute path="/placeOrder/:id">
+                            <PlaceOrder></PlaceOrder>
                         </PrivateRoute>
                         <Route path="/login">
                             <Login></Login>
