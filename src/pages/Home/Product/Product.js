@@ -22,7 +22,7 @@ const Product = (props) => {
                     {name}
                 </Typography>
                 <Typography variant="body1" gutterBottom>
-                    {description}
+                    {description.slice(1,200)}
                 </Typography>
                 <Typography variant="h5" gutterBottom component="div">
                     Price: ${price}

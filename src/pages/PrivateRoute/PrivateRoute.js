@@ -1,7 +1,7 @@
 import { CircularProgress } from '@mui/material';
 import React from 'react';
 import { Redirect, Route } from 'react-router';
-import useAuth from '../../hooks/useFirebase/useAuth/useAuth';
+import useAuth from '../../hooks/useAuth/useAuth';
 
 const PrivateRoute = ({children, ...rest}) => {
     const {user, isLoading} = useAuth();

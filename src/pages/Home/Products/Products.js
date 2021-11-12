@@ -8,13 +8,13 @@ const Products = () => {
     useEffect(() => {
         fetch("http://localhost:5000/products")
         .then(res => res.json())
-        .then(data => setProducts(data))
+        .then(data => setProducts(data.slice(2, 8)))
     },[])
 
     return (
         <Container>
             <Grid container spacing={2}>
-                {products.slice(2, 8).map((product) => (
+                {products.map((product) => (
                     <Product key={product.id} product={product}></Product>
                 ))}
             </Grid>
