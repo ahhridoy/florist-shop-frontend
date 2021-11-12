@@ -24,16 +24,17 @@ const useFirebase = () => {
         setIsLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
-                setAuthError("");
-                const newUser = {email, displayName: name}
+                const newUser = { email, displayName: name };
                 setUser(newUser);
+                savedUser(email, name, "POST");
                 // send name to firebase after creation
                 updateProfile(auth.currentUser, {
-                    displayName: name
-                  }).then(() => {
-                  }).catch((error) => {
-                  });
+                    displayName: name,
+                })
+                    .then(() => {})
+                    .catch((error) => {});
                 history.replace("/");
+                setAuthError("");
             })
             .catch((error) => {
                 setAuthError(error.message);
@@ -60,6 +61,8 @@ const useFirebase = () => {
         setIsLoading(true);
         signInWithPopup(auth, googleProvider)
             .then((result) => {
+                const user = result.user;
+                savedUser(user.email, user.displayName, "PUT");
                 const destination = location?.state?.from || "/";
                 history.replace(destination);
                 setAuthError("");
@@ -83,14 +86,27 @@ const useFirebase = () => {
         return () => unsubscribed;
     }, [auth]);
 
-    const logOut = () => {
+    const logOut = (history) => {
         setIsLoading(true);
         signOut(auth)
-            .then(() => {})
+            .then(() => {
+                history.replace("/");
+            })
             .catch((error) => {
                 setAuthError(error);
             })
             .finally(() => setIsLoading(false));
+    };
+
+    const savedUser = (email, displayName, method) => {
+        const users = { email, displayName };
+        fetch("http://localhost:5000/users", {
+            method: method,
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(users),
+        }).then();
     };
 
     return {

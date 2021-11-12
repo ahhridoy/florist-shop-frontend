@@ -6,43 +6,159 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import MyOrders from "../MyOrders/MyOrders";
+import { Button } from "@mui/material";
+import useAuth from "../../../hooks/useAuth/useAuth";
+import {
+    Switch,
+    Route,
+    useRouteMatch,
+    NavLink,
+    useHistory,
+} from "react-router-dom";
+import MakeAdmin from "../MakeAdmin/MakeAdmin";
+import ManageAllOrders from "../ManageAllOrders/ManageAllOrders";
+import AddAProduct from "../AddAProduct/AddAProduct";
+import ManageProducts from "../ManageProducts/ManageProducts";
 
 const drawerWidth = 240;
 
 const Dashboard = (props) => {
+    const { logOut } = useAuth();
+    const history = useHistory();
+
+    const handleLogOut = (e) => {
+        logOut(history);
+        e.preventDefault();
+    };
+
+    let { path, url } = useRouteMatch();
+
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
-
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
-    
+
     const drawer = (
         <div>
             <Toolbar />
             <Divider />
-            <List>
-                {["Inbox", "Starred", "Send email", "Drafts"].map(
-                    (text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    )
-                )}
-            </List>
+            <Box style={{ textAlign: "left", padding: '5px'}}>
+                <NavLink
+                    to="/home"
+                    style={{
+                        textDecoration: "none",
+                        color: "blue",
+                    }}
+                    activeStyle={{
+                        fontWeight: "bold",
+                        color: "navy",
+                        textDecoration: "none",
+                    }}
+                >
+                    <Button color="inherit" style={{ fontSize: "16px", textTransform: 'capitalize' }}>
+                        Home
+                    </Button>
+                </NavLink>{" "}
+                <br />
+                <NavLink
+                    to={`${url}`}
+                    style={{
+                        textDecoration: "none",
+                        color: "#9C27B0",
+                    }}
+                    activeStyle={{
+                        fontWeight: "bold",
+                        color: "navy",
+                        textDecoration: "none",
+                    }}
+                >
+                    <Button color="inherit" style={{ fontSize: "16px", textTransform: 'capitalize' }}>
+                        My Orders
+                    </Button>
+                </NavLink>{" "}
+                <br />
+                <NavLink
+                    to={`${url}/manageAllOrders`}
+                    style={{
+                        textDecoration: "none",
+                        color: "#9C27B0",
+                    }}
+                    activeStyle={{
+                        fontWeight: "bold",
+                        color: "navy",
+                        textDecoration: "none",
+                    }}
+                >
+                    <Button color="inherit" style={{ fontSize: "16px", textTransform: 'capitalize' }}>
+                        Manage All Orders
+                    </Button>
+                </NavLink>{" "}
+                <br />
+                <NavLink
+                    to={`${url}/addAProduct`}
+                    style={{
+                        textDecoration: "none",
+                        color: "#9C27B0",
+                    }}
+                    activeStyle={{
+                        fontWeight: "bold",
+                        color: "navy",
+                        textDecoration: "none",
+                    }}
+                >
+                    <Button color="inherit" style={{ fontSize: "16px", textTransform: 'capitalize' }}>
+                        Add a Product
+                    </Button>
+                </NavLink>{" "}
+                <br />
+                <NavLink
+                    to={`${url}/manageProducts`}
+                    style={{
+                        textDecoration: "none",
+                        color: "#9C27B0",
+                    }}
+                    activeStyle={{
+                        fontWeight: "bold",
+                        color: "navy",
+                        textDecoration: "none",
+                    }}
+                >
+                    <Button color="inherit" style={{ fontSize: "16px", textTransform: 'capitalize' }}>
+                        Manage Products
+                    </Button>
+                </NavLink>{" "}
+                <br />
+                <NavLink
+                    to={`${url}/makeAdmin`}
+                    style={{
+                        textDecoration: "none",
+                        color: "#9C27B0",
+                    }}
+                    activeStyle={{
+                        fontWeight: "bold",
+                        color: "navy",
+                        textDecoration: "none",
+                    }}
+                >
+                    <Button color="inherit" style={{ fontSize: "16px", textTransform: 'capitalize' }}>
+                        Make Admin
+                    </Button>
+                </NavLink>{" "}
+                <br />
+                <Button
+                    color="secondary"
+                    variant="contained"
+                    style={{ fontSize: "16px", textTransform: 'capitalize' }}
+                    onClick={handleLogOut}
+                >
+                    Logout
+                </Button>
+            </Box>
         </div>
     );
 
@@ -130,9 +246,23 @@ const Dashboard = (props) => {
                 }}
             >
                 <Toolbar />
-                <Typography paragraph>
-                  <MyOrders></MyOrders>
-                </Typography>
+                <Switch>
+                    <Route exact path={path}>
+                        <MyOrders></MyOrders>
+                    </Route>
+                    <Route path={`${path}/manageAllOrders`}>
+                        <ManageAllOrders></ManageAllOrders>
+                    </Route>
+                    <Route path={`${path}/addAProduct`}>
+                        <AddAProduct></AddAProduct>
+                    </Route>
+                    <Route path={`${path}/manageProducts`}>
+                        <ManageProducts></ManageProducts>
+                    </Route>
+                    <Route path={`${path}/makeAdmin`}>
+                        <MakeAdmin></MakeAdmin>
+                    </Route>
+                </Switch>
             </Box>
         </Box>
     );
