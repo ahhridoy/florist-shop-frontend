@@ -23,11 +23,13 @@ import MakeAdmin from "../MakeAdmin/MakeAdmin";
 import ManageAllOrders from "../ManageAllOrders/ManageAllOrders";
 import AddAProduct from "../AddAProduct/AddAProduct";
 import ManageProducts from "../ManageProducts/ManageProducts";
+import Pay from "../Pay/Pay";
+import Review from "../Review/Review";
 
 const drawerWidth = 240;
 
 const Dashboard = (props) => {
-    const { logOut } = useAuth();
+    const { user, logOut, admin } = useAuth();
     const history = useHistory();
 
     const handleLogOut = (e) => {
@@ -47,7 +49,7 @@ const Dashboard = (props) => {
         <div>
             <Toolbar />
             <Divider />
-            <Box style={{ textAlign: "left", padding: '5px'}}>
+            <Box style={{ textAlign: "left", padding: "5px" }}>
                 <NavLink
                     to="/home"
                     style={{
@@ -60,7 +62,13 @@ const Dashboard = (props) => {
                         textDecoration: "none",
                     }}
                 >
-                    <Button color="inherit" style={{ fontSize: "16px", textTransform: 'capitalize' }}>
+                    <Button
+                        color="inherit"
+                        style={{
+                            fontSize: "16px",
+                            textTransform: "capitalize",
+                        }}
+                    >
                         Home
                     </Button>
                 </NavLink>{" "}
@@ -77,83 +85,175 @@ const Dashboard = (props) => {
                         textDecoration: "none",
                     }}
                 >
-                    <Button color="inherit" style={{ fontSize: "16px", textTransform: 'capitalize' }}>
+                    <Button
+                        color="inherit"
+                        style={{
+                            fontSize: "16px",
+                            textTransform: "capitalize",
+                        }}
+                    >
                         My Orders
                     </Button>
                 </NavLink>{" "}
                 <br />
-                <NavLink
-                    to={`${url}/manageAllOrders`}
-                    style={{
-                        textDecoration: "none",
-                        color: "#9C27B0",
-                    }}
-                    activeStyle={{
-                        fontWeight: "bold",
-                        color: "navy",
-                        textDecoration: "none",
-                    }}
-                >
-                    <Button color="inherit" style={{ fontSize: "16px", textTransform: 'capitalize' }}>
-                        Manage All Orders
-                    </Button>
-                </NavLink>{" "}
+                {!admin && (
+                    <Box>
+                        <NavLink
+                            to={`${url}/pay`}
+                            style={{
+                                textDecoration: "none",
+                                color: "#9C27B0",
+                            }}
+                            activeStyle={{
+                                fontWeight: "bold",
+                                color: "navy",
+                                textDecoration: "none",
+                            }}
+                        >
+                            <Button
+                                color="inherit"
+                                style={{
+                                    fontSize: "16px",
+                                    textTransform: "capitalize",
+                                }}
+                            >
+                                Pay
+                            </Button>
+                        </NavLink>{" "}
+                        <br />
+                        <NavLink
+                            to={`${url}/review`}
+                            style={{
+                                textDecoration: "none",
+                                color: "#9C27B0",
+                            }}
+                            activeStyle={{
+                                fontWeight: "bold",
+                                color: "navy",
+                                textDecoration: "none",
+                            }}
+                        >
+                            <Button
+                                color="inherit"
+                                style={{
+                                    fontSize: "16px",
+                                    textTransform: "capitalize",
+                                }}
+                            >
+                                Review
+                            </Button>
+                        </NavLink>{" "}
+                        <br />
+                    </Box>
+                )}
+                {admin && (
+                    <Box>
+                        <NavLink
+                            to={`${url}/manageAllOrders`}
+                            style={{
+                                textDecoration: "none",
+                                color: "#9C27B0",
+                            }}
+                            activeStyle={{
+                                fontWeight: "bold",
+                                color: "navy",
+                                textDecoration: "none",
+                            }}
+                        >
+                            <Button
+                                color="inherit"
+                                style={{
+                                    fontSize: "16px",
+                                    textTransform: "capitalize",
+                                }}
+                            >
+                                Manage All Orders
+                            </Button>
+                        </NavLink>{" "}
+                        <br />
+                        <NavLink
+                            to={`${url}/addAProduct`}
+                            style={{
+                                textDecoration: "none",
+                                color: "#9C27B0",
+                            }}
+                            activeStyle={{
+                                fontWeight: "bold",
+                                color: "navy",
+                                textDecoration: "none",
+                            }}
+                        >
+                            <Button
+                                color="inherit"
+                                style={{
+                                    fontSize: "16px",
+                                    textTransform: "capitalize",
+                                }}
+                            >
+                                Add a Product
+                            </Button>
+                        </NavLink>{" "}
+                        <br />
+                        <NavLink
+                            to={`${url}/manageProducts`}
+                            style={{
+                                textDecoration: "none",
+                                color: "#9C27B0",
+                            }}
+                            activeStyle={{
+                                fontWeight: "bold",
+                                color: "navy",
+                                textDecoration: "none",
+                            }}
+                        >
+                            <Button
+                                color="inherit"
+                                style={{
+                                    fontSize: "16px",
+                                    textTransform: "capitalize",
+                                }}
+                            >
+                                Manage Products
+                            </Button>
+                        </NavLink>{" "}
+                        <br />
+                        <NavLink
+                            to={`${url}/makeAdmin`}
+                            style={{
+                                textDecoration: "none",
+                                color: "#9C27B0",
+                            }}
+                            activeStyle={{
+                                fontWeight: "bold",
+                                color: "navy",
+                                textDecoration: "none",
+                            }}
+                        >
+                            <Button
+                                color="inherit"
+                                style={{
+                                    fontSize: "16px",
+                                    textTransform: "capitalize",
+                                }}
+                            >
+                                Make Admin
+                            </Button>
+                        </NavLink>
+                    </Box>
+                )}{" "}
                 <br />
-                <NavLink
-                    to={`${url}/addAProduct`}
-                    style={{
-                        textDecoration: "none",
-                        color: "#9C27B0",
-                    }}
-                    activeStyle={{
-                        fontWeight: "bold",
-                        color: "navy",
-                        textDecoration: "none",
-                    }}
+                <Typography
+                    variant="caption"
+                    gutterBottom
+                    component="div"
+                    color="secondary"
                 >
-                    <Button color="inherit" style={{ fontSize: "16px", textTransform: 'capitalize' }}>
-                        Add a Product
-                    </Button>
-                </NavLink>{" "}
-                <br />
-                <NavLink
-                    to={`${url}/manageProducts`}
-                    style={{
-                        textDecoration: "none",
-                        color: "#9C27B0",
-                    }}
-                    activeStyle={{
-                        fontWeight: "bold",
-                        color: "navy",
-                        textDecoration: "none",
-                    }}
-                >
-                    <Button color="inherit" style={{ fontSize: "16px", textTransform: 'capitalize' }}>
-                        Manage Products
-                    </Button>
-                </NavLink>{" "}
-                <br />
-                <NavLink
-                    to={`${url}/makeAdmin`}
-                    style={{
-                        textDecoration: "none",
-                        color: "#9C27B0",
-                    }}
-                    activeStyle={{
-                        fontWeight: "bold",
-                        color: "navy",
-                        textDecoration: "none",
-                    }}
-                >
-                    <Button color="inherit" style={{ fontSize: "16px", textTransform: 'capitalize' }}>
-                        Make Admin
-                    </Button>
-                </NavLink>{" "}
-                <br />
+                    Logged In: {user.displayName}
+                </Typography>
                 <Button
                     color="secondary"
                     variant="contained"
-                    style={{ fontSize: "16px", textTransform: 'capitalize' }}
+                    style={{ fontSize: "16px", textTransform: "capitalize" }}
                     onClick={handleLogOut}
                 >
                     Logout
@@ -249,6 +349,12 @@ const Dashboard = (props) => {
                 <Switch>
                     <Route exact path={path}>
                         <MyOrders></MyOrders>
+                    </Route>
+                    <Route path={`${path}/pay`}>
+                        <Pay></Pay>
+                    </Route>
+                    <Route path={`${path}/review`}>
+                        <Review></Review>
                     </Route>
                     <Route path={`${path}/manageAllOrders`}>
                         <ManageAllOrders></ManageAllOrders>

@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+// import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth/useAuth";
 
@@ -23,7 +23,7 @@ const Header = () => {
                             aria-label="menu"
                             sx={{ mr: 2 }}
                         >
-                            <MenuIcon />
+                            {/* <MenuIcon /> */}
                         </IconButton>
                         <Typography
                             variant="h4"
@@ -31,7 +31,6 @@ const Header = () => {
                             sx={{
                                 flexGrow: 1,
                                 fontFamily: "Raleway, Arial",
-                                fontSize: "50px",
                                 padding: "10px 0px",
                             }}
                             textAlign="left"
@@ -54,7 +53,7 @@ const Header = () => {
                         >
                             <Button
                                 color="inherit"
-                                style={{ fontSize: "20px" }}
+                                style={{ fontSize: "15px" }}
                             >
                                 Home
                             </Button>
@@ -76,14 +75,14 @@ const Header = () => {
                                 >
                                     <Button
                                         color="inherit"
-                                        style={{ fontSize: "20px" }}
+                                        style={{ fontSize: "15px" }}
                                     >
                                         Dashboard
                                     </Button>
                                 </NavLink>
                                 <Button
                                     color="inherit"
-                                    style={{ fontSize: "20px" }}
+                                    style={{ fontSize: "15px" }}
                                     onClick={logOut}
                                 >
                                     Logout
@@ -105,7 +104,7 @@ const Header = () => {
                             >
                                 <Button
                                     color="inherit"
-                                    style={{ fontSize: "20px" }}
+                                    style={{ fontSize: "15px" }}
                                 >
                                     Login
                                 </Button>

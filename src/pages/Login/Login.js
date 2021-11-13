@@ -28,7 +28,6 @@ const Login = () => {
         const value = e.target.value;
         const newLoginData = { ...loginData };
         newLoginData[field] = value;
-        console.log(newLoginData);
         setLoginData(newLoginData);
     };
 
@@ -114,7 +113,7 @@ const Login = () => {
                         )}
                     </Grid>
                     <Grid item xs={12} md={6} lg={6}>
-                        <img src={login} alt="" style={{ width: "100%" }}></img>
+                        <img src={login} alt="" style={{ width: "80%" }}></img>
                     </Grid>
                 </Grid>
             </Container>

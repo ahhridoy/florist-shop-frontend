@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import "./ReactHookForm.css";
 import { Button, Alert } from "@mui/material";
-import useAuth from "../../hooks/useAuth/useAuth";
+import useAuth from "../../../hooks/useAuth/useAuth";
+import "../../PlaceOrder/ReactHookForm.css";
 
-const ReactHookForm = (props) => {
-    const { name, price } = props.product;
+const Review = () => {
     const { user } = useAuth();
     const [success, setSuccess] = useState(false);
 
@@ -16,7 +15,7 @@ const ReactHookForm = (props) => {
     } = useForm();
 
     const onSubmit = (data) => {
-        fetch("http://localhost:5000/placeOrder", {
+        fetch("http://localhost:5000/reviews", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -36,16 +35,6 @@ const ReactHookForm = (props) => {
             <form onSubmit={handleSubmit(onSubmit)} className="form-field">
                 <input
                     className="input-field"
-                    defaultValue={name}
-                    {...register("product", { required: true })}
-                />
-                <input
-                    className="input-field"
-                    defaultValue={price}
-                    {...register("price", { required: true })}
-                />
-                <input
-                    className="input-field"
                     defaultValue={user.displayName}
                     {...register("name")}
                 />
@@ -54,29 +43,26 @@ const ReactHookForm = (props) => {
                     defaultValue={user.email}
                     {...register("email")}
                 />
-                <input
-                    className="input-field"
-                    placeholder="Address"
-                    {...register("address", { required: true })}
-                />
-                <input
-                    className="input-field"
-                    placeholder="Phone Number"
-                    {...register("phone", { required: true })}
+                <textarea
+                    style={{width: '100%', height: '100px'}}
+                    placeholder="Review"
+                    {...register("review", { required: true })}
                 />
                 {errors.exampleRequired && <span>This field is required</span>}
+                <br />
+                <br />
                 <Button
                     variant="contained"
                     color="secondary"
                     style={{ width: "50%" }}
                     type="submit"
                 >
-                    Place Order
+                    Review
                 </Button>
             </form>
-            {success && <Alert severity="success">Order Placed Successfully!</Alert>}
+            {success && <Alert severity="success">Your Review Posted Successfully!</Alert>}
         </>
     );
 };
 
-export default ReactHookForm;
+export default Review;
