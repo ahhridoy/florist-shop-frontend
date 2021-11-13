@@ -16,7 +16,7 @@ const ReactHookForm = (props) => {
     } = useForm();
 
     const onSubmit = (data) => {
-        fetch("http://localhost:5000/placeOrder", {
+        fetch("https://arcane-spire-84650.herokuapp.com/placeOrder", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -74,7 +74,9 @@ const ReactHookForm = (props) => {
                     Place Order
                 </Button>
             </form>
-            {success && <Alert severity="success">Order Placed Successfully!</Alert>}
+            {success && (
+                <Alert severity="success">Order Placed Successfully!</Alert>
+            )}
         </>
     );
 };

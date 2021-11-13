@@ -14,7 +14,9 @@ const MyOrders = () => {
     const { user } = useAuth();
 
     useEffect(() => {
-        fetch(`http://localhost:5000/myOrders?email=${user.email}`)
+        fetch(
+            `https://arcane-spire-84650.herokuapp.com/myOrders?email=${user.email}`
+        )
             .then((res) => res.json())
             .then((data) => setMyOrders(data));
     }, [user.email]);
@@ -23,7 +25,7 @@ const MyOrders = () => {
     const handleDeleteUser = (id) => {
         const proceed = window.confirm("Are you sure, you want to delete?");
         if (proceed) {
-            const url = `http://localhost:5000/myOrders/${id}`;
+            const url = `https://arcane-spire-84650.herokuapp.com/myOrders/${id}`;
             fetch(url, {
                 method: "DELETE",
             })
@@ -71,7 +73,9 @@ const MyOrders = () => {
                                     <Button
                                         variant="contained"
                                         color="secondary"
-                                        onClick={() => handleDeleteUser(myOrders[0]?._id)}
+                                        onClick={() =>
+                                            handleDeleteUser(myOrders[0]?._id)
+                                        }
                                     >
                                         Cancel
                                     </Button>

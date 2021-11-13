@@ -10,7 +10,7 @@ const PlaceOrder = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        fetch(`http://localhost:5000/placeOrder/${id}`)
+        fetch(`https://arcane-spire-84650.herokuapp.com/placeOrder/${id}`)
             .then((res) => res.json())
             .then((data) => setProduct(data));
     }, [id]);

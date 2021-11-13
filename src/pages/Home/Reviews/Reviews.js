@@ -12,13 +12,13 @@ const Reviews = () => {
     const [myReviews, setMyReviews] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/usersReview")
+        fetch("https://arcane-spire-84650.herokuapp.com/usersReview")
             .then((res) => res.json())
             .then((data) => setMyReviews(data));
     }, []);
     return (
         <Container>
-            <TableContainer component={Paper}  sx={{margin: '50px 0px'}}>
+            <TableContainer component={Paper} sx={{ margin: "50px 0px" }}>
                 <Table sx={{ minWidth: 300 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>

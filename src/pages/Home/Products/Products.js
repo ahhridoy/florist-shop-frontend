@@ -6,10 +6,10 @@ const Products = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/products")
-        .then(res => res.json())
-        .then(data => setProducts(data.slice(2, 8)))
-    },[])
+        fetch("https://arcane-spire-84650.herokuapp.com/products")
+            .then((res) => res.json())
+            .then((data) => setProducts(data.slice(1, 7)));
+    }, []);
 
     return (
         <Container>

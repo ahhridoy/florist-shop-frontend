@@ -11,7 +11,7 @@ const MakeAdmin = () => {
 
     const handleOnSubmit = (e) => {
         const user = { email };
-        fetch("http://localhost:5000/users/admin", {
+        fetch("https://arcane-spire-84650.herokuapp.com/users/admin", {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
@@ -43,7 +43,9 @@ const MakeAdmin = () => {
                     Make Admin
                 </Button>
             </form>
-            {success && <Alert severity="success">Made Admin Successfully!</Alert>}
+            {success && (
+                <Alert severity="success">Made Admin Successfully!</Alert>
+            )}
         </>
     );
 };

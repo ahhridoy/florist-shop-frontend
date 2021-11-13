@@ -15,7 +15,7 @@ const Review = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        fetch("http://localhost:5000/reviews", {
+        fetch("https://arcane-spire-84650.herokuapp.com/reviews", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -44,7 +44,7 @@ const Review = () => {
                     {...register("email")}
                 />
                 <textarea
-                    style={{width: '100%', height: '100px'}}
+                    style={{ width: "100%", height: "100px" }}
                     placeholder="Review"
                     {...register("review", { required: true })}
                 />
@@ -60,7 +60,11 @@ const Review = () => {
                     Review
                 </Button>
             </form>
-            {success && <Alert severity="success">Your Review Posted Successfully!</Alert>}
+            {success && (
+                <Alert severity="success">
+                    Your Review Posted Successfully!
+                </Alert>
+            )}
         </>
     );
 };
