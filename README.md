@@ -9,6 +9,6 @@ This Website's [Server Link](https://arcane-spire-84650.herokuapp.com/)
 could order any flowers.
 - There was a dashboard. In this dashboard Customers
 would see all their order, cancel their order and review
-for our site
+for our site.
 - There was an admin dashboard. Admin could add
 products, manage products & manage all orders.
