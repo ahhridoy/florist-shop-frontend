@@ -10,12 +10,12 @@ const banner = {
     background: `url(${bg})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "contain",
-    height: "800px",
+    height: "750px",
 };
 
 const Banner = () => {
     return (
-        <Box style={banner}>
+        <Box style={banner} className="banner-box">
             <img className="welcome-img" src={welcome} alt="" />
             <h1 className="banner-title" style={{ fontFamily: '"Comic Sans"' }}>
                 2022 Flowers Trend

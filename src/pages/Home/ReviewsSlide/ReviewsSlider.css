@@ -1,0 +1,14 @@
+.slider-box {
+    background-color: white;
+    margin: 10px 0px;
+    padding: 20px 0px;
+}
+.slider-img-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.slider-img {
+    width: 300px;
+    border-radius: 50%;
+}

@@ -1,0 +1,21 @@
+.delivery-system-box {
+    padding: 0px 20px;
+    border: 1px solid gray;
+    background-color: white;
+    margin-bottom: 50px;
+}
+
+.delivery-box-img {
+    display: flex;
+    align-items: center;
+}
+
+.box-img {
+    width: 80px;
+    height: 80px;
+}
+
+.box-text {
+    text-align: left;
+    margin-left: 10px;
+}

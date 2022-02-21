@@ -39,7 +39,7 @@ const Header = () => {
                             Florist <span style={{ color: "black" }}>Shop</span>
                         </Typography>
                         <NavLink
-                            to="/home"
+                            to="/"
                             style={{
                                 textDecoration: "none",
                                 color: "white",
@@ -56,6 +56,26 @@ const Header = () => {
                                 style={{ fontSize: "15px" }}
                             >
                                 Home
+                            </Button>
+                        </NavLink>
+                        <NavLink
+                            to="/exploreAllProducts"
+                            style={{
+                                textDecoration: "none",
+                                color: "white",
+                                fontWeight: "bold",
+                            }}
+                            activeStyle={{
+                                fontWeight: "bold",
+                                color: "navy",
+                                textDecoration: "none",
+                            }}
+                        >
+                            <Button
+                                color="inherit"
+                                style={{ fontSize: "15px" }}
+                            >
+                                Shop
                             </Button>
                         </NavLink>
                         {user?.email ? (

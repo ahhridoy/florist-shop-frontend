@@ -12,6 +12,9 @@
 }
 
 @media only screen and (max-width: 600px) {
+    .banner-box {
+        margin-bottom: -565px;
+    }
     .welcome-img {
         width: 230px;
         margin-top: 28px;

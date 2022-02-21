@@ -33,19 +33,32 @@ const Review = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} className="form-field">
+            <input
+                    className="input-field"
+                    placeholder="Enter your image link"
+                    {...register("img")}
+                />
                 <input
                     className="input-field"
+                    placeholder="Enter your name"
                     defaultValue={user.displayName}
                     {...register("name")}
                 />
                 <input
                     className="input-field"
+                    placeholder="Enter your email"
                     defaultValue={user.email}
                     {...register("email")}
                 />
+                <input
+                    className="input-field"
+                    placeholder="Enter your rating"
+                    defaultValue={user.email}
+                    {...register("rating")}
+                />
                 <textarea
                     style={{ width: "100%", height: "100px" }}
-                    placeholder="Review"
+                    placeholder="Write your review"
                     {...register("review", { required: true })}
                 />
                 {errors.exampleRequired && <span>This field is required</span>}

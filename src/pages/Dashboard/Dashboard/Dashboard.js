@@ -51,7 +51,7 @@ const Dashboard = (props) => {
             <Divider />
             <Box style={{ textAlign: "left", padding: "5px" }}>
                 <NavLink
-                    to="/home"
+                    to="/"
                     style={{
                         textDecoration: "none",
                         color: "blue",
