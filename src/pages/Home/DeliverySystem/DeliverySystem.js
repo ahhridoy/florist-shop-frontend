@@ -17,7 +17,11 @@ const DeliverySystem = () => {
                 >
                     <Grid item xs={12} sm={6} md={3}>
                         <div className="delivery-box-img">
-                            <img className="box-img" src={img1} alt="" />
+                            <img
+                                className="box-img offer-img"
+                                src={img1}
+                                alt=""
+                            />
                             <div className="box-text">
                                 <h3>Free shipping</h3>
                                 <p>On all orders over $49.00</p>
@@ -26,7 +30,11 @@ const DeliverySystem = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
                         <div className="delivery-box-img">
-                            <img className="box-img" src={img2} alt="" />
+                            <img
+                                className="box-img offer-img"
+                                src={img2}
+                                alt=""
+                            />
                             <div className="box-text">
                                 <h3>15 days returns</h3>
                                 <p>Moneyback guarantee</p>
@@ -35,7 +43,11 @@ const DeliverySystem = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
                         <div className="delivery-box-img">
-                            <img className="box-img" src={img3} alt="" />
+                            <img
+                                className="box-img offer-img"
+                                src={img3}
+                                alt=""
+                            />
                             <div className="box-text">
                                 <h3>Secure checkout</h3>
                                 <p>Protected by Paypal</p>
@@ -44,7 +56,11 @@ const DeliverySystem = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
                         <div className="delivery-box-img">
-                            <img className="box-img" src={img4} alt="" />
+                            <img
+                                className="box-img offer-img"
+                                src={img4}
+                                alt=""
+                            />
                             <div className="box-text">
                                 <h3>Offer & gift here</h3>
                                 <p>On all orders over</p>

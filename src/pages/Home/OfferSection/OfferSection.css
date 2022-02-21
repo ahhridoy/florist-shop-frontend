@@ -1,0 +1,7 @@
+.offer-img {
+    transition: 1s;
+}
+
+.offer-img:hover {
+    transform: scale(1.2);
+}

@@ -11,7 +11,7 @@ const Footer = () => {
         >
             <Container sx={{ padding: "20px" }}>
                 <Grid container spacing={2} sx={{ color: "white" }}>
-                    <Grid item xs={12} sm={6} md={3}>
+                    <Grid item xs={12} sm={6} md={4} style={{textAlign: "left"}}>
                         <Typography
                             variant="h4"
                             gutterBottom
@@ -31,7 +31,7 @@ const Footer = () => {
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
-                        <List>
+                        <List style={{textAlign: "left"}}>
                             <Typography
                                 variant="h5"
                                 gutterBottom
@@ -46,8 +46,8 @@ const Footer = () => {
                             <ListItemText>Why We?</ListItemText>
                         </List>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <List>
+                    <Grid item xs={12} sm={6} md={2}>
+                        <List style={{textAlign: "left"}}>
                             <Typography
                                 variant="h5"
                                 gutterBottom
@@ -63,7 +63,7 @@ const Footer = () => {
                         </List>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
-                        <List>
+                        <List style={{textAlign: "left"}}>
                             <Typography
                                 variant="h5"
                                 gutterBottom

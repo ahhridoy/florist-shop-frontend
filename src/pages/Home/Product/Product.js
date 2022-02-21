@@ -11,6 +11,7 @@ const Product = (props) => {
                     style={{ width: "100%", borderRadius: "10px" }}
                     src={img}
                     alt=""
+                    className="offer-img"
                 />
                 <Typography
                     variant="h4"

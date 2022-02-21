@@ -12,10 +12,14 @@ const TwoFlowers = () => {
                 spacing={2}
             >
                 <Grid item xs={12} sm={6} md={6}>
-                    <img style={{ width: "100%" }} src={img2} alt="" />
+                    <div className="offer-img">
+                        <img style={{ width: "100%" }} src={img2} alt="" />
+                    </div>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
-                    <img style={{ width: "100%" }} src={img1} alt="" />
+                    <div className="offer-img">
+                        <img style={{ width: "100%" }} src={img1} alt="" />
+                    </div>
                 </Grid>
             </Grid>
         </Container>
