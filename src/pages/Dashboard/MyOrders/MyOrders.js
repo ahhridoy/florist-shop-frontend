@@ -15,7 +15,7 @@ const MyOrders = () => {
 
     useEffect(() => {
         fetch(
-            `https://arcane-spire-84650.herokuapp.com/myOrders?email=${user.email}`
+            `https://blooming-scrubland-74816.herokuapp.com/myOrders?email=${user.email}`
         )
             .then((res) => res.json())
             .then((data) => setMyOrders(data));
@@ -25,7 +25,7 @@ const MyOrders = () => {
     const handleDeleteUser = (id) => {
         const proceed = window.confirm("Are you sure, you want to delete?");
         if (proceed) {
-            const url = `https://arcane-spire-84650.herokuapp.com/myOrders/${id}`;
+            const url = `https://blooming-scrubland-74816.herokuapp.com/myOrders/${id}`;
             fetch(url, {
                 method: "DELETE",
             })

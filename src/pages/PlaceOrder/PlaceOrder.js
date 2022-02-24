@@ -10,7 +10,7 @@ const PlaceOrder = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        fetch(`https://arcane-spire-84650.herokuapp.com/placeOrder/${id}`)
+        fetch(`https://blooming-scrubland-74816.herokuapp.com/placeOrder/${id}`)
             .then((res) => res.json())
             .then((data) => setProduct(data));
     }, [id]);

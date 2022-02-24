@@ -1,0 +1,16 @@
+.register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    margin: 50px;
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.register-input {
+    width: 50%;
+    height: 40px;
+    margin-top: 10px;
+}

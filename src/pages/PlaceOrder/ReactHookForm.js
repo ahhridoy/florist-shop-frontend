@@ -16,7 +16,7 @@ const ReactHookForm = (props) => {
     } = useForm();
 
     const onSubmit = (data) => {
-        fetch("https://arcane-spire-84650.herokuapp.com/placeOrder", {
+        fetch("https://blooming-scrubland-74816.herokuapp.com/placeOrder", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

@@ -15,7 +15,7 @@ const Review = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        fetch("https://arcane-spire-84650.herokuapp.com/reviews", {
+        fetch("https://blooming-scrubland-74816.herokuapp.com/reviews", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -33,7 +33,7 @@ const Review = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} className="form-field">
-            <input
+                <input
                     className="input-field"
                     placeholder="Enter your image link"
                     {...register("img")}

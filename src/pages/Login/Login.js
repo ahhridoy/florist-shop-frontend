@@ -9,32 +9,44 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth/useAuth";
-import login from "../../images/login.png";
+// import login from "../../images/login.png";
 import Footer from "../Shared/Footer/Footer";
 import Header from "../Shared/Header/Header";
+import swal from "sweetalert";
 
 const Login = () => {
-    const [loginData, setLoginData] = useState({});
     const { user, loginUser, signInWithGoogle, isLoading, authError } =
         useAuth();
     useAuth();
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    const onSubmit = (data) => {
+        console.log(data);
+        loginUser(data, location, history);
+    };
+
     const location = useLocation();
     const history = useHistory();
 
-    const handleOnBlur = (e) => {
-        const field = e.target.name;
-        const value = e.target.value;
-        const newLoginData = { ...loginData };
-        newLoginData[field] = value;
-        setLoginData(newLoginData);
-    };
+    // const handleOnBlur = (e) => {
+    //     const field = e.target.name;
+    //     const value = e.target.value;
+    //     const newLoginData = { ...loginData };
+    //     newLoginData[field] = value;
+    //     setLoginData(newLoginData);
+    // };
 
-    const handleLoginSubmit = (e) => {
-        loginUser(loginData.email, loginData.password, location, history);
-        e.preventDefault();
-    };
+    // const handleLoginSubmit = (e) => {
+    //     loginUser(loginData.email, loginData.password, location, history);
+    //     e.preventDefault();
+    // };
 
     const handleGoogleSignIn = () => {
         signInWithGoogle(location, history);
@@ -42,6 +54,65 @@ const Login = () => {
     return (
         <>
             <Header></Header>
+            <Container>
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="register-form"
+                >
+                    <Typography
+                        variant="h4"
+                        gutterBottom
+                        sx={{ fontWeight: "bold" }}
+                    >
+                        Login
+                    </Typography>
+                    <input
+                        type="email"
+                        className="register-input"
+                        placeholder="Enter your email"
+                        {...register("email")}
+                    />
+                    <input
+                        type="password"
+                        className="register-input"
+                        placeholder="Enter your password"
+                        {...register("password")}
+                    />
+
+                    {errors.exampleRequired && (
+                        <span>This field is required</span>
+                    )}
+                    <br />
+                    <br />
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        style={{ width: "50%" }}
+                        type="submit"
+                    >
+                        Login
+                    </Button>
+                    <Link to="/register" style={{ textDecoration: "none" }}>
+                        <Button variant="text" color="secondary">
+                            NEW USER? PLEASE REGISTER!
+                        </Button>
+                    </Link>
+                    <Button
+                        onClick={handleGoogleSignIn}
+                        variant="contained"
+                        color="secondary"
+                    >
+                        Google Sign In
+                    </Button>
+                </form>
+                {user?.email && (
+                    <Alert severity="success">Login successfully!</Alert>
+                )}
+                {authError && <Alert severity="error">{authError}</Alert>}
+            </Container>
+            <Footer></Footer>
+
+            {/* <Header></Header>
             <Container>
                 <Grid container spacing={2}>
                     <Grid
@@ -117,7 +188,7 @@ const Login = () => {
                     </Grid>
                 </Grid>
             </Container>
-            <Footer></Footer>
+            <Footer></Footer> */}
         </>
     );
 };

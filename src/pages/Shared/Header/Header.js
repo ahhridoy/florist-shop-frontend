@@ -10,6 +10,7 @@ import useAuth from "../../../hooks/useAuth/useAuth";
 
 const Header = () => {
     const { user, logOut } = useAuth();
+    console.log("users eseche",user)
     return (
         <header>
             <Box sx={{ flexGrow: 1 }}>

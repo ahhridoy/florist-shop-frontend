@@ -8,43 +8,114 @@ import {
     Alert,
 } from "@mui/material";
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import "./Register.css";
+import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth/useAuth";
-import login from "../../images/login.png";
+// import login from "../../images/login.png";
 import Footer from "../Shared/Footer/Footer";
 import Header from "../Shared/Header/Header";
 
 const Register = () => {
-    const [loginData, setLoginData] = useState({});
-    const { user, registerUser, isLoading, authError } = useAuth();
+    // const [loginData, setLoginData] = useState({});
+    const { user, registerUser, success, isLoading, authError } = useAuth();
+    
 
-    const history = useHistory();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
 
-    const handleOnBlur = (e) => {
-        const field = e.target.name;
-        const value = e.target.value;
-        const newLoginData = { ...loginData };
-        newLoginData[field] = value;
-        console.log(newLoginData);
-        setLoginData(newLoginData);
+    const onSubmit = (data) => {
+        registerUser(data)
     };
 
-    const handleRegisterSubmit = (e) => {
-        if (loginData.password !== loginData.password2) {
-            alert("Your password did not match");
-            return;
-        }
-        registerUser(
-            loginData.email,
-            loginData.password,
-            loginData.name,
-            history
-        );
-        e.preventDefault();
-    };
+    // const history = useHistory();
+
+    // const handleOnBlur = (e) => {
+    //     const field = e.target.name;
+    //     const value = e.target.value;
+    //     const newLoginData = { ...loginData };
+    //     newLoginData[field] = value;
+    //     console.log(newLoginData);
+    //     setLoginData(newLoginData);
+    // };
+
+    // const handleRegisterSubmit = (e) => {
+    //     if (loginData.password !== loginData.password2) {
+    //         alert("Your password did not match");
+    //         return;
+    //     }
+    //     registerUser(
+    //         loginData.email,
+    //         loginData.password,
+    //         loginData.name,
+    //         history
+    //     );
+    //     e.preventDefault();
+    // };
+
     return (
         <>
             <Header></Header>
+            <Container>
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="register-form"
+                >
+                    <Typography
+                        variant="h4"
+                        gutterBottom
+                        sx={{ fontWeight: "bold" }}
+                    >
+                        Register
+                    </Typography>
+                    <input
+                        type="text"
+                        className="register-input"
+                        placeholder="Enter your name"
+                        {...register("name")}
+                    />
+                    <input
+                        type="email"
+                        className="register-input"
+                        placeholder="Enter your email"
+                        {...register("email")}
+                    />
+                    <input
+                        type="password"
+                        className="register-input"
+                        placeholder="Enter your password"
+                        {...register("password")}
+                    />
+
+                    {errors.exampleRequired && (
+                        <span>This field is required</span>
+                    )}
+                    <br />
+                    <br />
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        style={{ width: "50%" }}
+                        type="submit"
+                    >
+                        Register
+                    </Button>
+                    <Link to="/login" style={{ textDecoration: "none" }}>
+                        <Button variant="text" color="secondary">
+                            ALREADY HAVE AN ACCOUNT? PLEASE LOGIN!
+                        </Button>
+                    </Link>
+                </form>
+                {success && (
+                    <Alert severity="success">User Created Successfully!</Alert>
+                )}
+            </Container>
+            <Footer></Footer>
+
+            {/* <Header></Header>
             <Container>
                 <Grid container spacing={2}>
                     <Grid
@@ -121,6 +192,11 @@ const Register = () => {
                                 User Created successfully!
                             </Alert>
                         )}
+                        {success && (
+                            <Alert severity="success">
+                                User Created Successfully!
+                            </Alert>
+                        )}
                         {authError && (
                             <Alert severity="error">{authError}</Alert>
                         )}
@@ -130,7 +206,7 @@ const Register = () => {
                     </Grid>
                 </Grid>
             </Container>
-            <Footer></Footer>
+            <Footer></Footer> */}
         </>
     );
 };

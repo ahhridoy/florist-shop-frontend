@@ -10,6 +10,7 @@ import {
     updateProfile,
 } from "firebase/auth";
 import initializeAuthentication from "../../pages/Firebase/firebase.init";
+import swal from "sweetalert";
 
 // initialize firebase
 initializeAuthentication();
@@ -20,42 +21,98 @@ const useFirebase = () => {
     const [authError, setAuthError] = useState("");
     const [admin, setAdmin] = useState(false);
     const auth = getAuth();
+    const [success, setSuccess] = useState(false);
+    // const [users, setUsers] = useState({});
 
-    const registerUser = (email, password, name, history) => {
+    // Manual Authentication
+    const registerUser = (data) => {
         setIsLoading(true);
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                const newUser = { email, displayName: name };
-                setUser(newUser);
-                savedUser(email, name, "POST");
-                // send name to firebase after creation
-                updateProfile(auth.currentUser, {
-                    displayName: name,
-                })
-                    .then(() => {})
-                    .catch((error) => {});
-                history.replace("/");
-                setAuthError("");
-            })
-            .catch((error) => {
-                setAuthError(error.message);
-            })
-            .finally(() => setIsLoading(false));
+        fetch("https://blooming-scrubland-74816.herokuapp.com/userRegister", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                setUser(data);
+                if (data.acknowledged) {
+                    setSuccess(true);
+                }
+                console.log(data);
+            });
     };
 
-    const loginUser = (email, password, location, history) => {
+    const loginUser = (data, location, history) => {
         setIsLoading(true);
-        signInWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                const destination = location?.state?.from || "/";
-                history.replace(destination);
-                setAuthError("");
-            })
-            .catch((error) => {
-                setAuthError(error.message);
-            })
-            .finally(() => setIsLoading(false));
+        // console.log(email, password)
+        fetch("https://blooming-scrubland-74816.herokuapp.com/userLogin", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                setUser(data);
+                if (data.user?.email) {
+                    setSuccess(true);
+                    localStorage.setItem("login", JSON.stringify(data.user));
+                    const getLoginDetails = localStorage.getItem("login");
+                    setUser(JSON.parse(getLoginDetails));
+                    swal(
+                        "login successfully",
+                        "welcome to florist shop",
+                        "success"
+                    ).then((proceed) => {
+                        if (proceed) {
+                            history.replace("/");
+                        }
+                    });
+                }
+                console.log(data);
+            });
     };
+
+    // const registerUser = (email, password, name, history) => {
+    //     setIsLoading(true);
+    //     createUserWithEmailAndPassword(auth, email, password)
+    //         .then(() => {
+    //             const newUser = { email, displayName: name };
+    //             setUser(newUser);
+    //             savedUser(email, name, "POST");
+    //             // send name to firebase after creation
+    //             updateProfile(auth.currentUser, {
+    //                 displayName: name,
+    //             })
+    //                 .then(() => {})
+    //                 .catch((error) => {});
+    //             history.replace("/");
+    //             setAuthError("");
+    //         })
+    //         .catch((error) => {
+    //             setAuthError(error.message);
+    //         })
+    //         .finally(() => setIsLoading(false));
+    // };
+
+    // const loginUser = (email, password, location, history) => {
+    //     setIsLoading(true);
+    //     signInWithEmailAndPassword(auth, email, password)
+    //         .then(() => {
+    //             const destination = location?.state?.from || "/";
+    //             history.replace(destination);
+    //             setAuthError("");
+    //         })
+    //         .catch((error) => {
+    //             setAuthError(error.message);
+    //         })
+    //         .finally(() => setIsLoading(false));
+    // };
 
     const signInWithGoogle = (location, history) => {
         const googleProvider = new GoogleAuthProvider();
@@ -88,13 +145,16 @@ const useFirebase = () => {
     }, [auth]);
 
     useEffect(() => {
-        fetch(`https://arcane-spire-84650.herokuapp.com/users/${user.email}`)
+        fetch(
+            `https://blooming-scrubland-74816.herokuapp.com/users/${user.email}`
+        )
             .then((res) => res.json())
             .then((data) => setAdmin(data.admin));
     }, [user.email]);
 
     const logOut = (history) => {
         setIsLoading(true);
+        localStorage.removeItem("login");
         signOut(auth)
             .then(() => {
                 history.replace("/");
@@ -107,7 +167,7 @@ const useFirebase = () => {
 
     const savedUser = (email, displayName, method) => {
         const users = { email, displayName };
-        fetch("https://arcane-spire-84650.herokuapp.com/users", {
+        fetch("https://blooming-scrubland-74816.herokuapp.com/users", {
             method: method,
             headers: {
                 "content-type": "application/json",
@@ -120,6 +180,8 @@ const useFirebase = () => {
         user,
         registerUser,
         loginUser,
+        // users,
+        success,
         signInWithGoogle,
         logOut,
         isLoading,

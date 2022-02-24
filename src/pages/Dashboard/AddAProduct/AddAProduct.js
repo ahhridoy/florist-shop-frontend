@@ -13,7 +13,7 @@ const AddAProduct = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        fetch("https://arcane-spire-84650.herokuapp.com/products", {
+        fetch("https://blooming-scrubland-74816.herokuapp.com/products", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
