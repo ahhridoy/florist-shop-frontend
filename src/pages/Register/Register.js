@@ -1,214 +1,141 @@
 import {
-    Container,
-    Grid,
-    Typography,
-    TextField,
-    Button,
-    CircularProgress,
-    Alert,
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Alert,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  Grid,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import "./Register.css";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth/useAuth";
-// import login from "../../images/login.png";
+import login from "../../images/login.png";
 import Footer from "../Shared/Footer/Footer";
 import Header from "../Shared/Header/Header";
+import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Register = () => {
-    // const [loginData, setLoginData] = useState({});
-    const { user, registerUser, success, isLoading, authError } = useAuth();
-    
+  const { registerUser, success, signInWithGoogle } = useAuth();
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    const onSubmit = (data) => {
-        registerUser(data)
-    };
+  const location = useLocation();
+  const history = useHistory();
 
-    // const history = useHistory();
+  const onSubmit = (data) => {
+    registerUser(data, location, history);
+  };
 
-    // const handleOnBlur = (e) => {
-    //     const field = e.target.name;
-    //     const value = e.target.value;
-    //     const newLoginData = { ...loginData };
-    //     newLoginData[field] = value;
-    //     console.log(newLoginData);
-    //     setLoginData(newLoginData);
-    // };
+  const handleGoogleSignIn = () => {
+    signInWithGoogle(location, history);
+  };
 
-    // const handleRegisterSubmit = (e) => {
-    //     if (loginData.password !== loginData.password2) {
-    //         alert("Your password did not match");
-    //         return;
-    //     }
-    //     registerUser(
-    //         loginData.email,
-    //         loginData.password,
-    //         loginData.name,
-    //         history
-    //     );
-    //     e.preventDefault();
-    // };
+  return (
+    <>
+      <Header></Header>
+      <Container>
+        <Grid container spacing={2}>
+          <Grid item md={6}>
+            <img
+              className="login-img"
+              style={{ marginTop: "100px" }}
+              src={login}
+              alt="LoginImage"
+            />
+          </Grid>
+          <Grid
+            item
+            md={6}
+            className="register-form"
+            style={{ margin: "60px 0px" }}
+          >
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
+                Register
+              </Typography>
+              <TextField
+                id="standard-basic"
+                variant="standard"
+                type="text"
+                className="register-input"
+                placeholder="Enter your name"
+                {...register("name")}
+              />
+              <TextField
+                id="standard-basic"
+                variant="standard"
+                type="email"
+                className="register-input"
+                placeholder="Enter your email"
+                {...register("email")}
+              />
+              <TextField
+                id="standard-basic"
+                variant="standard"
+                type="password"
+                className="register-input"
+                placeholder="Enter your password"
+                {...register("password")}
+              />
 
-    return (
-        <>
-            <Header></Header>
-            <Container>
-                <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className="register-form"
-                >
-                    <Typography
-                        variant="h4"
-                        gutterBottom
-                        sx={{ fontWeight: "bold" }}
-                    >
-                        Register
-                    </Typography>
-                    <input
-                        type="text"
-                        className="register-input"
-                        placeholder="Enter your name"
-                        {...register("name")}
-                    />
-                    <input
-                        type="email"
-                        className="register-input"
-                        placeholder="Enter your email"
-                        {...register("email")}
-                    />
-                    <input
-                        type="password"
-                        className="register-input"
-                        placeholder="Enter your password"
-                        {...register("password")}
-                    />
+              <FormGroup style={{marginLeft: "50px"}}>
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="I agree to the terms of service"
+                />
+              </FormGroup>
 
-                    {errors.exampleRequired && (
-                        <span>This field is required</span>
-                    )}
-                    <br />
-                    <br />
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        style={{ width: "50%" }}
-                        type="submit"
-                    >
-                        Register
-                    </Button>
-                    <Link to="/login" style={{ textDecoration: "none" }}>
-                        <Button variant="text" color="secondary">
-                            ALREADY HAVE AN ACCOUNT? PLEASE LOGIN!
-                        </Button>
-                    </Link>
-                </form>
-                {success && (
-                    <Alert severity="success">User Created Successfully!</Alert>
-                )}
-            </Container>
-            <Footer></Footer>
-
-            {/* <Header></Header>
-            <Container>
-                <Grid container spacing={2}>
-                    <Grid
-                        item
-                        xs={12}
-                        md={6}
-                        lg={6}
-                        sx={{ marginTop: "100px" }}
-                    >
-                        <Typography
-                            variant="h4"
-                            gutterBottom
-                            sx={{ fontWeight: "bold" }}
-                        >
-                            Register
-                        </Typography>
-                        {!isLoading && (
-                            <form onSubmit={handleRegisterSubmit}>
-                                <TextField
-                                    sx={{ width: "75%", m: 2 }}
-                                    name="name"
-                                    onBlur={handleOnBlur}
-                                    id="standard-basic"
-                                    label="Your Name"
-                                    variant="standard"
-                                />
-                                <TextField
-                                    sx={{ width: "75%", m: 2 }}
-                                    name="email"
-                                    onBlur={handleOnBlur}
-                                    id="standard-basic"
-                                    label="Your Email"
-                                    variant="standard"
-                                />
-                                <TextField
-                                    sx={{ width: "75%", m: 2 }}
-                                    name="password"
-                                    onBlur={handleOnBlur}
-                                    id="standard-basic"
-                                    label="Password"
-                                    variant="standard"
-                                    type="password"
-                                />
-                                <TextField
-                                    sx={{ width: "75%", m: 2 }}
-                                    name="password2"
-                                    onBlur={handleOnBlur}
-                                    id="standard-basic"
-                                    label="Re-Type Password"
-                                    variant="standard"
-                                    type="password"
-                                />
-                                <Button
-                                    sx={{ width: "75%", m: 2 }}
-                                    variant="contained"
-                                    color="secondary"
-                                    type="submit"
-                                >
-                                    Register
-                                </Button>
-                                <Link
-                                    to="/login"
-                                    style={{ textDecoration: "none" }}
-                                >
-                                    <Button variant="text" color="secondary">
-                                        ALREADY HAVE AN ACCOUNT? PLEASE LOGIN!
-                                    </Button>
-                                </Link>
-                            </form>
-                        )}
-                        {isLoading && <CircularProgress />}
-                        {user?.email && (
-                            <Alert severity="success">
-                                User Created successfully!
-                            </Alert>
-                        )}
-                        {success && (
-                            <Alert severity="success">
-                                User Created Successfully!
-                            </Alert>
-                        )}
-                        {authError && (
-                            <Alert severity="error">{authError}</Alert>
-                        )}
-                    </Grid>
-                    <Grid item xs={12} md={6} lg={6}>
-                        <img src={login} alt="" style={{ width: "100%" }}></img>
-                    </Grid>
-                </Grid>
-            </Container>
-            <Footer></Footer> */}
-        </>
-    );
+              {errors.exampleRequired && <span>This field is required</span>}
+              <br />
+              <br />
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{ width: "80%", height: "50px", marginTop: "-20px" }}
+                type="submit"
+              >
+                Register
+              </Button>
+              <p>_____________________ Or Login With _____________________</p>
+              <div className="icons-div">
+                <Button style={{ fontSize: "30px" }}>
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </Button>
+                <Button sx={{ fontSize: "30px" }}>
+                  <ion-icon name="logo-twitter"></ion-icon>
+                </Button>
+                <Button sx={{ fontSize: "30px" }} onClick={handleGoogleSignIn}>
+                  <ion-icon name="logo-google"></ion-icon>
+                </Button>
+                <Button sx={{ fontSize: "30px" }}>
+                  <ion-icon name="logo-linkedin"></ion-icon>
+                </Button>
+              </div>
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <Button variant="text" color="secondary">
+                  ALREADY HAVE AN ACCOUNT? PLEASE LOGIN!
+                </Button>
+              </Link>
+            </form>
+          </Grid>
+        </Grid>
+        {success && (
+          <Alert severity="success">User Created Successfully!</Alert>
+        )}
+      </Container>
+      <Footer></Footer>
+    </>
+  );
 };
 
 export default Register;

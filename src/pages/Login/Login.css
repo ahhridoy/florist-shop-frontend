@@ -1,0 +1,15 @@
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox-div {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.icons-div {
+   display: flex;
+   justify-content: center;
+}

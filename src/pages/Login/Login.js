@@ -1,196 +1,147 @@
 import {
-    Alert,
-    Button,
-    CircularProgress,
-    Container,
-    Grid,
-    TextField,
-    Typography,
+  Alert,
+  Button,
+  Checkbox,
+  Container,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  TextField,
+  Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth/useAuth";
-// import login from "../../images/login.png";
+import login from "../../images/login.png";
 import Footer from "../Shared/Footer/Footer";
 import Header from "../Shared/Header/Header";
-import swal from "sweetalert";
+import "./Login.css";
 
 const Login = () => {
-    const { user, loginUser, signInWithGoogle, isLoading, authError } =
-        useAuth();
-    useAuth();
+  const { user, loginUser, signInWithGoogle, authError } = useAuth();
+  useAuth();
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data);
-        loginUser(data, location, history);
-    };
+  const onSubmit = (data) => {
+    console.log(data);
+    loginUser(data, location, history);
+  };
 
-    const location = useLocation();
-    const history = useHistory();
+  const location = useLocation();
+  const history = useHistory();
 
-    // const handleOnBlur = (e) => {
-    //     const field = e.target.name;
-    //     const value = e.target.value;
-    //     const newLoginData = { ...loginData };
-    //     newLoginData[field] = value;
-    //     setLoginData(newLoginData);
-    // };
-
-    // const handleLoginSubmit = (e) => {
-    //     loginUser(loginData.email, loginData.password, location, history);
-    //     e.preventDefault();
-    // };
-
-    const handleGoogleSignIn = () => {
-        signInWithGoogle(location, history);
-    };
-    return (
-        <>
-            <Header></Header>
-            <Container>
-                <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className="register-form"
-                >
-                    <Typography
-                        variant="h4"
-                        gutterBottom
-                        sx={{ fontWeight: "bold" }}
-                    >
-                        Login
-                    </Typography>
-                    <input
-                        type="email"
-                        className="register-input"
-                        placeholder="Enter your email"
-                        {...register("email")}
+  const handleGoogleSignIn = () => {
+    signInWithGoogle(location, history);
+  };
+  return (
+    <>
+      <Header></Header>
+      <Container>
+        <Grid container spacing={2}>
+          <Grid item md={6}>
+            <img
+              className="login-img"
+              style={{ marginTop: "100px" }}
+              src={login}
+              alt="LoginImage"
+            />
+          </Grid>
+          <Grid
+            item
+            md={6}
+            className="register-form"
+            style={{ margin: "60px 0px" }}
+          >
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
+                Login
+              </Typography>
+              <Typography
+                variant="h5"
+                gutterBottom
+                sx={{ marginBottom: "20px" }}
+              >
+                Sign in into you account
+              </Typography>
+              <TextField
+                id="standard-basic"
+                variant="standard"
+                type="email"
+                className="register-input"
+                placeholder="Email Address"
+                {...register("email")}
+              />
+              <TextField
+                id="standard-basic"
+                variant="standard"
+                type="password"
+                className="register-input"
+                placeholder="Password"
+                {...register("password")}
+              />
+              <div className="checkbox-div">
+                <div className="checkbox-check">
+                  <FormGroup>
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      label="Remember Me"
                     />
-                    <input
-                        type="password"
-                        className="register-input"
-                        placeholder="Enter your password"
-                        {...register("password")}
-                    />
+                  </FormGroup>
+                </div>
+                <div>
+                  <Button>Forget Password?</Button>
+                </div>
+              </div>
 
-                    {errors.exampleRequired && (
-                        <span>This field is required</span>
-                    )}
-                    <br />
-                    <br />
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        style={{ width: "50%" }}
-                        type="submit"
-                    >
-                        Login
-                    </Button>
-                    <Link to="/register" style={{ textDecoration: "none" }}>
-                        <Button variant="text" color="secondary">
-                            NEW USER? PLEASE REGISTER!
-                        </Button>
-                    </Link>
-                    <Button
-                        onClick={handleGoogleSignIn}
-                        variant="contained"
-                        color="secondary"
-                    >
-                        Google Sign In
-                    </Button>
-                </form>
-                {user?.email && (
-                    <Alert severity="success">Login successfully!</Alert>
-                )}
-                {authError && <Alert severity="error">{authError}</Alert>}
-            </Container>
-            <Footer></Footer>
+              {errors.exampleRequired && <span>This field is required</span>}
+              <br />
+              <br />
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{ width: "80%", height: "50px", marginTop: "-20px" }}
+                type="submit"
+              >
+                Login
+              </Button>
 
-            {/* <Header></Header>
-            <Container>
-                <Grid container spacing={2}>
-                    <Grid
-                        item
-                        xs={12}
-                        md={6}
-                        lg={6}
-                        sx={{ marginTop: "150px" }}
-                    >
-                        <Typography
-                            variant="h4"
-                            gutterBottom
-                            sx={{ fontWeight: "bold" }}
-                        >
-                            Log-In
-                        </Typography>
-                        {!isLoading && (
-                            <form onSubmit={handleLoginSubmit}>
-                                <TextField
-                                    sx={{ width: "75%", m: 2 }}
-                                    name="email"
-                                    onBlur={handleOnBlur}
-                                    id="standard-basic"
-                                    label="Your Email"
-                                    variant="standard"
-                                />
-                                <TextField
-                                    sx={{ width: "75%", m: 2 }}
-                                    name="password"
-                                    onBlur={handleOnBlur}
-                                    id="standard-basic"
-                                    label="Password"
-                                    variant="standard"
-                                    type="password"
-                                />
-                                <Button
-                                    sx={{ width: "75%", m: 2 }}
-                                    variant="contained"
-                                    color="secondary"
-                                    type="submit"
-                                >
-                                    Login
-                                </Button>
-                                <Link
-                                    to="/register"
-                                    style={{ textDecoration: "none" }}
-                                >
-                                    <Button variant="text" color="secondary">
-                                        NEW USER? PLEASE REGISTER!
-                                    </Button>
-                                </Link>
-                            </form>
-                        )}
-                        <Button
-                            onClick={handleGoogleSignIn}
-                            variant="contained"
-                            color="secondary"
-                        >
-                            Google Sign In
-                        </Button>
-                        {isLoading && <CircularProgress />}
-                        {user?.email && (
-                            <Alert severity="success">
-                                Login successfully!
-                            </Alert>
-                        )}
-                        {authError && (
-                            <Alert severity="error">{authError}</Alert>
-                        )}
-                    </Grid>
-                    <Grid item xs={12} md={6} lg={6}>
-                        <img src={login} alt="" style={{ width: "80%" }}></img>
-                    </Grid>
-                </Grid>
-            </Container>
-            <Footer></Footer> */}
-        </>
-    );
+              <p>_______________ Or Login With ______________</p>
+              <div className="icons-div">
+                <Button style={{ fontSize: "30px" }}>
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </Button>
+                <Button sx={{ fontSize: "30px" }}>
+                  <ion-icon name="logo-twitter"></ion-icon>
+                </Button>
+                <Button sx={{ fontSize: "30px" }} onClick={handleGoogleSignIn}>
+                  <ion-icon name="logo-google"></ion-icon>
+                </Button>
+                <Button sx={{ fontSize: "30px" }}>
+                  <ion-icon name="logo-linkedin"></ion-icon>
+                </Button>
+              </div>
+
+              <Link
+                to="/register"
+                style={{ textDecoration: "none", marginTop: "20px" }}
+              >
+                <Button>NEW USER? PLEASE REGISTER!</Button>
+              </Link>
+            </form>
+          </Grid>
+        </Grid>
+        {user?.email && <Alert severity="success">Login successfully!</Alert>}
+        {authError && <Alert severity="error">{authError}</Alert>}
+      </Container>
+      <Footer></Footer>
+    </>
+  );
 };
 
 export default Login;
